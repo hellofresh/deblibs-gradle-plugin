@@ -14,31 +14,34 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs
+package com.hellofresh.deblibs.github
 
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
+import com.hellofresh.deblibs.Adapters
+import com.hellofresh.deblibs.BaseClient
+import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
+import com.hellofresh.deblibs.BaseClient.Companion.JSON
+import com.hellofresh.deblibs.BaseClient.Companion.client
+import com.hellofresh.deblibs.BaseClient.Companion.requestBuilder
+import com.squareup.moshi.JsonAdapter
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
 import java.net.HttpURLConnection
 
-class Github(
-    val owner: String,
-    val repo: String,
-    val token: String,
-    val githubIssue: GithubIssue
-) : Runnable {
+class GithubClient(
+    private val owner: String,
+    private val repo: String,
+    private val token: String,
+    private val githubIssue: GithubIssue
+) : BaseClient {
 
+    val moshiAdapter: JsonAdapter<GithubIssue> = Adapters.adapter()
     override fun run() {
         createIssue()
     }
 
-    val client = OkHttpClient()
-    val JSON = MediaType.parse("application/json; charset=utf-8")
-
     private fun createIssue() {
-        val json = Adapters.GithubIssue.toJson(githubIssue)
+        val json = moshiAdapter.toJson(githubIssue)
         val requestBody = RequestBody.create(JSON, json)
         val request = createRequestHeaders(token)
             .url("https://api.github.com/repos/$owner/$repo/issues")
@@ -62,10 +65,6 @@ class Github(
     }
 
     private fun createRequestHeaders(token: String): Request.Builder {
-        return Request.Builder()
-            .addHeader("Authorization", "token $token")
-            .addHeader("User-Agent", "delibs-gradle-plugin")
-            .addHeader("Accept", "application/vnd.github.v3+json")
-            .addHeader("Content-Type", "application/json")
+        return requestBuilder.addHeader(AUTHORIZATION, "token $token")
     }
 }

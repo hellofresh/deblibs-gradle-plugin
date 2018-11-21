@@ -42,8 +42,6 @@ data class Dependency(
     var latest: String? = "",
     val projectUrl: String? = "",
     val name: String = "",
-    var escapedName: String = "",
-    var versionName: String = "",
     val available: AvailableDependency? = null
 )
 

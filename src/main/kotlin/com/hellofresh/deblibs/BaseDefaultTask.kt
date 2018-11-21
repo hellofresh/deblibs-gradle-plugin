@@ -16,36 +16,54 @@
 
 package com.hellofresh.deblibs
 
+import okio.buffer
+import okio.source
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.TaskAction
+import java.io.File
 
 abstract class BaseDefaultTask : DefaultTask() {
 
-    protected fun List<Dependency>.findCommonVersions(): List<Dependency> {
-        val map = groupBy { it.group }
-        for (deps in map.values) {
-            val groupTogether = deps.size > 1 && deps.map { it.version }.distinct().size == 1
-            for (d in deps) {
-                d.versionName = if (groupTogether) escapeName(d.group) else d.escapedName
-            }
-        }
-        return this
+    @Input
+    var jsonInputPath = "build/dependencyUpdates/report.json"
+
+    protected abstract fun postTask(dependencyGraph: DependencyGraph)
+
+    @TaskAction
+    fun taskAction() {
+        val jsonInput = project.file(jsonInputPath)
+        val dependencyGraph = readGraphFromJsonFile(jsonInput)
+        postTask(dependencyGraph)
     }
 
-    protected fun List<Dependency>.orderDependencies(): List<Dependency> {
-        return this.sortedBy { it.gradleNotation() }
-    }
-
-    protected fun escapeName(name: String): String {
-        val escapedChars = listOf('-', '.', ':')
-        return buildString {
-            for (c in name) {
-                append(if (c in escapedChars) '_' else c.toLowerCase())
+    protected fun parseGraphForGradle(graph: DependencyGraph): String {
+        val gradle = graph.gradle
+        return when {
+            gradle.current.version > gradle.running.version -> {
+                "[${gradle.running.version} -> ${gradle.current.version}]"
             }
+            gradle.releaseCandidate.version > gradle.running.version -> {
+                "[${gradle.running.version} -> ${gradle.releaseCandidate.version}]"
+            }
+            else -> ""
         }
     }
 
     protected fun parseGraph(graph: DependencyGraph): List<Dependency> {
         val dependencies: List<Dependency> = graph.outdated
-        return dependencies.orderDependencies().findCommonVersions()
+        return dependencies.sortedDependencies()
+    }
+
+    private fun readGraphFromJsonFile(jsonInput: File): DependencyGraph {
+        return Adapters.DependencyGraph.fromJson(jsonInput.source().buffer())!!
+    }
+
+    private fun List<Dependency>.sortedDependencies(): List<Dependency> {
+        return this.sortedBy { it.gradleNotation() }
+    }
+
+    private fun escapeName(name: String): String {
+        return name.replace("[-.:]".toRegex(), "_").toLowerCase()
     }
 }

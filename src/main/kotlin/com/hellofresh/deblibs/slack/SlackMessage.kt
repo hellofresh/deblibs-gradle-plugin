@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs
+package com.hellofresh.deblibs.slack
 
-data class SlackMessage(val text: String)
+data class SlackMessage(val text: String, val channel: String)

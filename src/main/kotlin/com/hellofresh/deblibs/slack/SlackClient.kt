@@ -14,30 +14,33 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs
+package com.hellofresh.deblibs.slack
 
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
+import com.hellofresh.deblibs.Adapters.adapter
+import com.hellofresh.deblibs.BaseClient
+import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
+import com.hellofresh.deblibs.BaseClient.Companion.JSON
+import com.hellofresh.deblibs.BaseClient.Companion.client
+import com.hellofresh.deblibs.BaseClient.Companion.requestBuilder
+import com.squareup.moshi.JsonAdapter
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
 import java.net.HttpURLConnection
 
-class Slack(
-    val username: String,
-    val token: String,
-    val slackMessage: SlackMessage
-) : Runnable {
+class SlackClient(
+    private val token: String,
+    private val slackMessage: SlackMessage
+) : BaseClient {
+
+    val moshiAdapter: JsonAdapter<SlackMessage> = adapter()
 
     override fun run() {
         postMessage()
     }
 
-    val client = OkHttpClient()
-    val JSON = MediaType.parse("application/json; charset=utf-8")
-
     private fun postMessage() {
-        val json = Adapters.SlackMessage.toJson(slackMessage)
+        val json = moshiAdapter.toJson(slackMessage)
         val requestBody = RequestBody.create(JSON, json)
         val request = createRequestHeaders(token)
             .url("https://slack.com/api/chat.postMessage")
@@ -58,9 +61,6 @@ class Slack(
     }
 
     private fun createRequestHeaders(token: String): Request.Builder {
-        return Request.Builder()
-            .addHeader("Authorization", "Bearer $token")
-            .addHeader("User-Agent", "delibs-gradle-plugin")
-            .addHeader("Content-Type", "application/json")
+        return requestBuilder.addHeader(AUTHORIZATION, "Bearer $token")
     }
 }

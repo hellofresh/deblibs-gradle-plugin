@@ -17,17 +17,22 @@
 package com.hellofresh.deblibs
 
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import com.hellofresh.deblibs.github.CreateGithubIssueTask
+import com.hellofresh.deblibs.slack.CreateSlackMessageTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.maybeCreate
+import org.gradle.kotlin.dsl.register
 
 open class DebLibsPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        val gradlePlugionVersions: DependencyUpdatesTask =
-            project.tasks.maybeCreate("dependencyUpdates", DependencyUpdatesTask::class.java)
 
-        with(gradlePlugionVersions) {
+        val gradlePluginVersions: DependencyUpdatesTask =
+            project.tasks.maybeCreate<DependencyUpdatesTask>("dependencyUpdates")
+        val jsonFile = "${gradlePluginVersions.outputDir}/${gradlePluginVersions.reportfileName}.json"
+        with(gradlePluginVersions) {
             outputFormatter = "json"
             checkForGradleUpdate = true
             resolutionStrategy {
@@ -44,21 +49,40 @@ open class DebLibsPlugin : Plugin<Project> {
             }
         }
 
-        val ext = project.extensions.create("deblibs", DebLibsExtension::class.java)
-        project.tasks.create("createGithubIssue", CreateGithubIssueTask::class) {
-            dependsOn(":dependencyUpdates")
-            jsonInputPath = "${gradlePlugionVersions.outputDir}/${gradlePlugionVersions.reportfileName}.json"
-        }
+        with(project) {
+            val ext = extensions.create<DebLibsExtension>(EXTENSION_NAME)
+            logger.info("Creating $EXTENSION_NAME tasks...")
+            tasks.register<CreateGithubIssueTask>(GITHUB_TASK_NAME) {
+                dependsOn(GRADLE_PLUGIN_VERSION_TASK_NAME)
+                jsonInputPath = jsonFile
+            }
 
-        project.afterEvaluate {
-            val debLibsPlugin = project.plugins.findPlugin(DebLibsPlugin::class.java)
-            if (debLibsPlugin is DebLibsPlugin) {
-                val createGithubIssue = project.tasks.getByName("createGithubIssue") as CreateGithubIssueTask
-                //TODO set default values based on project config
-                createGithubIssue.owner = ext.owner
-                createGithubIssue.repo = ext.repo
-                createGithubIssue.token = ext.token
+            tasks.register(SLACK_TASK_NAME, CreateSlackMessageTask::class) {
+                dependsOn(GRADLE_PLUGIN_VERSION_TASK_NAME)
+                jsonInputPath = jsonFile
+            }
+            logger.info("Finished creating $EXTENSION_NAME tasks")
+            afterEvaluate {
+                val debLibsPlugin = project.plugins.findPlugin(DebLibsPlugin::class.java)
+                if (debLibsPlugin is DebLibsPlugin) {
+                    val createGithubIssue = tasks.getByName(GITHUB_TASK_NAME) as CreateGithubIssueTask
+                    //TODO set default values based on project config
+                    createGithubIssue.owner = ext.githubOwner
+                    createGithubIssue.repo = ext.githubRepo
+                    createGithubIssue.token = ext.githubToken
+                    val slackMessage = tasks.getByName(SLACK_TASK_NAME) as CreateSlackMessageTask
+                    slackMessage.token = ext.slackToken
+                    slackMessage.channel = ext.slackChannel
+                }
             }
         }
+    }
+
+    companion object {
+
+        private const val SLACK_TASK_NAME = "createSlackMessage"
+        private const val GITHUB_TASK_NAME = "createGithubIssue"
+        private const val GRADLE_PLUGIN_VERSION_TASK_NAME = ":dependencyUpdates"
+        private const val EXTENSION_NAME = "deblibs"
     }
 }

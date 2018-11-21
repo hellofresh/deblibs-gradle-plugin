@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs
+package com.hellofresh.deblibs.github
 
-import okio.buffer
-import okio.source
+import com.hellofresh.deblibs.BaseDefaultTask
+import com.hellofresh.deblibs.Dependency
+import com.hellofresh.deblibs.DependencyGraph
+import com.hellofresh.deblibs.gradleNotation
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.TaskAction
-import java.io.File
 
 open class CreateGithubIssueTask : BaseDefaultTask() {
 
-    @Input
-    var jsonInputPath = "build/dependencyUpdates/report.json"
     @Input
     lateinit var owner: String
     @Input
@@ -38,14 +36,7 @@ open class CreateGithubIssueTask : BaseDefaultTask() {
         group = "reporting"
     }
 
-    @TaskAction
-    fun taskAction() {
-        val jsonInput = project.file(jsonInputPath)
-        val dependencyGraph = readGraphFromJsonFile(jsonInput)
-        postToGithub(dependencyGraph)
-    }
-
-    private fun postToGithub(dependencyGraph: DependencyGraph) {
+    protected override fun postTask(dependencyGraph: DependencyGraph) {
         val dependencies: List<Dependency> = parseGraph(dependencyGraph)
         var outDatedDependencies = ""
         dependencies.forEach {
@@ -54,33 +45,15 @@ open class CreateGithubIssueTask : BaseDefaultTask() {
         }
         val gradleVersion = parseGraphForGradle(dependencyGraph)
         if (gradleVersion.isNotBlank()) {
-            outDatedDependencies += "\nGradle updates:\n"
-            outDatedDependencies += "* [ ] `Gradle: $gradleVersion`\n"
+            outDatedDependencies += "\nGradle updates:\n* [ ] `Gradle: $gradleVersion`\n"
         }
         if (outDatedDependencies.isNotBlank()) {
-            Github(
+            GithubClient(
                 owner,
                 repo,
                 token,
                 GithubIssue("Outdated Dependencies(${dependencies.size})", outDatedDependencies)
             ).run()
         }
-    }
-
-    private fun parseGraphForGradle(graph: DependencyGraph): String {
-        val gradle = graph.gradle
-        return when {
-            gradle.current.version > gradle.running.version -> {
-                "[${gradle.running.version} -> ${gradle.current.version}]"
-            }
-            gradle.releaseCandidate.version > gradle.running.version -> {
-                "[${gradle.running.version} -> ${gradle.releaseCandidate.version}]"
-            }
-            else -> ""
-        }
-    }
-
-    private fun readGraphFromJsonFile(jsonInput: File): DependencyGraph {
-        return Adapters.DependencyGraph.fromJson(jsonInput.source().buffer())!!
     }
 }

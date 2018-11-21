@@ -16,4 +16,9 @@
 
 package com.hellofresh.deblibs
 
-open class DebLibsExtension(var owner: String = "", var repo: String = "", var token: String = "")
+open class DebLibsExtension(
+    var githubOwner: String = "",
+    var githubRepo: String = "",
+    var githubToken: String = "",
+    var slackToken: String = "",
+    var slackChannel: String = "")
