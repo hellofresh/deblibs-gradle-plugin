@@ -61,19 +61,23 @@ open class DebLibsPlugin : Plugin<Project> {
                 dependsOn(GRADLE_PLUGIN_VERSION_TASK_NAME)
                 jsonInputPath = jsonFile
             }
+
             logger.info("Finished creating $EXTENSION_NAME tasks")
+
             afterEvaluate {
-                val debLibsPlugin = project.plugins.findPlugin(DebLibsPlugin::class.java)
-                if (debLibsPlugin is DebLibsPlugin) {
-                    val createGithubIssue = tasks.getByName(GITHUB_TASK_NAME) as CreateGithubIssueTask
-                    //TODO set default values based on project config
-                    createGithubIssue.owner = ext.githubOwner
-                    createGithubIssue.repo = ext.githubRepo
-                    createGithubIssue.token = ext.githubToken
-                    val slackMessage = tasks.getByName(SLACK_TASK_NAME) as CreateSlackMessageTask
-                    slackMessage.token = ext.slackToken
-                    slackMessage.channel = ext.slackChannel
-                }
+                val createGithubIssue =
+                    tasks.getByName(GITHUB_TASK_NAME) as CreateGithubIssueTask
+                createGithubIssue.owner = ext.githubOwner
+                createGithubIssue.repo = ext.githubRepo
+                createGithubIssue.token = ext.githubToken
+
+                val slackMessage =
+                    tasks.getByName(SLACK_TASK_NAME) as CreateSlackMessageTask
+                slackMessage.token = ext.slackToken
+                slackMessage.channel = ext.slackChannel
+                slackMessage.projectName = ext.projectName
+                slackMessage.username = ext.slackName
+                slackMessage.iconUrl = ext.slackIconUrl
             }
         }
     }

@@ -35,7 +35,8 @@ class GithubClient(
     private val githubIssue: GithubIssue
 ) : BaseClient {
 
-    val moshiAdapter: JsonAdapter<GithubIssue> = Adapters.adapter()
+    private val moshiAdapter: JsonAdapter<GithubIssue> = Adapters.adapter()
+
     override fun run() {
         createIssue()
     }

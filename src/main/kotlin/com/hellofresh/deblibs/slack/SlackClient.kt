@@ -26,14 +26,13 @@ import com.squareup.moshi.JsonAdapter
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import java.net.HttpURLConnection
 
 class SlackClient(
     private val token: String,
     private val slackMessage: SlackMessage
 ) : BaseClient {
 
-    val moshiAdapter: JsonAdapter<SlackMessage> = adapter()
+    private val moshiAdapter: JsonAdapter<SlackMessage> = adapter()
 
     override fun run() {
         postMessage()
@@ -55,7 +54,8 @@ class SlackClient(
             response?.body()?.close()
         }
 
-        if (status != HttpURLConnection.HTTP_CREATED) {
+        val isSuccessful = response?.isSuccessful ?: return
+        if (!isSuccessful) {
             error("Could not create slack message: $status ${response?.message()}\n")
         }
     }
