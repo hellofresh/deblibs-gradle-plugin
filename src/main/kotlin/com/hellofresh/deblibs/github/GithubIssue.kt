@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs
+package com.hellofresh.deblibs.github
 
-data class SlackMessage(val text: String)
+data class GithubIssue(val title: String, val body: String)

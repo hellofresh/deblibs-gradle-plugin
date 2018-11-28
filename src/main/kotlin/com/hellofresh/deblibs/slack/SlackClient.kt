@@ -14,34 +14,35 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs
+package com.hellofresh.deblibs.slack
 
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
+import com.hellofresh.deblibs.Adapters.adapter
+import com.hellofresh.deblibs.BaseClient
+import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
+import com.hellofresh.deblibs.BaseClient.Companion.JSON
+import com.hellofresh.deblibs.BaseClient.Companion.client
+import com.hellofresh.deblibs.BaseClient.Companion.requestBuilder
+import com.squareup.moshi.JsonAdapter
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import java.net.HttpURLConnection
 
-class Github(
-    val owner: String,
-    val repo: String,
-    val token: String,
-    val githubIssue: GithubIssue
-) : Runnable {
+class SlackClient(
+    private val token: String,
+    private val slackMessage: SlackMessage
+) : BaseClient {
+
+    private val moshiAdapter: JsonAdapter<SlackMessage> = adapter()
 
     override fun run() {
-        createIssue()
+        postMessage()
     }
 
-    val client = OkHttpClient()
-    val JSON = MediaType.parse("application/json; charset=utf-8")
-
-    private fun createIssue() {
-        val json = Adapters.GithubIssue.toJson(githubIssue)
+    private fun postMessage() {
+        val json = moshiAdapter.toJson(slackMessage)
         val requestBody = RequestBody.create(JSON, json)
         val request = createRequestHeaders(token)
-            .url("https://api.github.com/repos/$owner/$repo/issues")
+            .url("https://slack.com/api/chat.postMessage")
             .post(requestBody)
             .build()
         var response: Response? = null
@@ -53,19 +54,13 @@ class Github(
             response?.body()?.close()
         }
 
-        if (status != HttpURLConnection.HTTP_CREATED) {
-            if (status == HttpURLConnection.HTTP_NOT_FOUND) {
-                error("404 Repository with Owner: '$owner' and Name: '$repo' was not found")
-            }
-            error("Could not create github issue: $status ${response?.message()}\n$githubIssue")
+        val isSuccessful = response?.isSuccessful ?: return
+        if (!isSuccessful) {
+            error("Could not create slack message: $status ${response?.message()}\n")
         }
     }
 
     private fun createRequestHeaders(token: String): Request.Builder {
-        return Request.Builder()
-            .addHeader("Authorization", "token $token")
-            .addHeader("User-Agent", "delibs-gradle-plugin")
-            .addHeader("Accept", "application/vnd.github.v3+json")
-            .addHeader("Content-Type", "application/json")
+        return requestBuilder.addHeader(AUTHORIZATION, "Bearer $token")
     }
 }

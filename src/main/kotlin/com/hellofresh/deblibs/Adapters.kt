@@ -21,10 +21,7 @@ import com.squareup.moshi.Moshi
 
 object Adapters {
 
-    private val moshi = Moshi.Builder().build()!!
-    val GithubIssue: JsonAdapter<GithubIssue> = adapter()
-    val SlackMessage: JsonAdapter<SlackMessage> = adapter()
+    val moshi = Moshi.Builder().build()!!
     val DependencyGraph: JsonAdapter<DependencyGraph> = adapter()
-
-    private inline fun <reified T> adapter(): JsonAdapter<T> = moshi.adapter(T::class.java)
+    inline fun <reified T> adapter(): JsonAdapter<T> = moshi.adapter(T::class.java)
 }
