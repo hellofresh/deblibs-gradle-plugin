@@ -1,10 +1,22 @@
 DebLibs
 -------
 
-A Gradle plugin that creates Github issue and Slack message for outdated dependencies so they 
+A Gradle plugin that creates Github issue and Slack message for outdated project dependencies so they 
 can easily be tracked and manually upgraded.
 
+**Latest version:** [0.1.0](#)
+
 This plugin builds on the [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin).
+
+Screenshots
+-----------
+
+#### Sample Github Issue
+
+![Alt text](screenshots/github-issue.png?raw=true "Sample github issue")
+
+#### Sample Slack Issue
+![Alt text](screenshots/slack-message.png?raw=true "Sample slack message")
 
 Usage
 -----
@@ -16,31 +28,74 @@ plugins {
   id "com.hellofresh.deblibs" version "$version"
 }
 ```
-or via the
 
 ### `buildscript` block:
 ```groovy
 apply plugin: "com.hellofresh.deblibs"
 
 buildscript {
+
   repositories {
-    jcenter()
+    maven { url "https://plugins.gradle.org/m2/"}
   }
 
   dependencies {
     classpath "com.hellofresh.deblibs:deblibs:$version"
   }
+  
 }
 ```
 
-The current version is known to work with Gradle versions up to 4.8.
+The plugin show work with Gradle version 4.3 and above.
 
-## Tasks
+Configuration
+-------------
+The following configuration block is _required._
 
-### `createGithuIssue`
+If you don't configure the default will be used which are blank values. This will lead to undesirable behaviour which means info about outdated dependencies won't be uploaded.
+
+```groovy
+deblibs {
+   projectName ="Project name"
+   githubOwner = "project-github-owner"
+   githubRepo = "project-github-repo"
+   githubToken = "github-token"
+   slackToken = "slack-token"
+   slackChannel = "#slack-channel"    
+}
+
+```
+
+Tasks
+----
+
+The plugin comes with two tasks. A task for publishing info about outdated dependencies to Github as an issue. This is useful when you want to track outdated dependencies as an issue on Github.
+
+The second task is for publishing info about outdated dependencies to a Slack channel as a message. This is also useful when you want to post outdated dependencies to slack.
+
+To create a Github issue, issue the command:
+
+`./gradlew createGithubIssue` 
+
+To post to Slack, issue the command:
+
+`./gradlew createSlackMessage`
+
+Development
+-----------
+### Import
+Import the [settings.gradle.kts](https://github.com/hellofresh/deblibs-gradle-plugin/blob/master/settings.gradle.kts) file into your IDE for development.
+
+### Build
+
+Build the plugin with: `./gradlew build`
+
+Publish to a local maven repository for testing with: `./gradlew publishToMavenLocal`
 
 
-### `createSlackMessage`
+Link
+----
+[Deblibs Gradle Plugin on the Gradle Plugin Registry](https://plugins.gradle.org/plugin/com.hellofresh.deblibs)
 
 License
 -------
