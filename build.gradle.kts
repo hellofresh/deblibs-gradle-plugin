@@ -16,23 +16,27 @@
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val kotlinVersion: String by extra
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.3.0"
+    kotlinVersion = "1.3.10"
     repositories {
-        mavenCentral()
+        jcenter()
     }
 }
 
 plugins {
+    id("com.gradle.plugin-publish") version "0.10.0"
     `java-gradle-plugin`
     `kotlin-dsl`
     `maven-publish`
-    id("com.gradle.plugin-publish") version "0.10.0"
 }
+
 apply {
     plugin("kotlin")
+}
+
+repositories {
+    jcenter()
 }
 
 group = "com.hellofresh.deblibs"
@@ -42,17 +46,38 @@ gradlePlugin {
     plugins {
         register("deblibs") {
             id = "com.hellofresh.deblibs"
-            displayName = "deblibs"
-            description = "Uploads apps dependencies to github"
             implementationClass = "com.hellofresh.deblibs.DebLibsPlugin"
         }
     }
 }
 
-publishing {
-    repositories {
-        maven(url = "build/repository")
+pluginBundle {
+    website = "https://plugins.gradle.org/plugin/com.hellofresh.deblibs"
+    vcsUrl = "https://github.com/hellofresh/deblibs-gradle-plugin"
+    tags = listOf(
+        "kotlin",
+        "kotlin-dsl",
+        "versioning",
+        "dependencies",
+        "libraries",
+        "upgrade",
+        "android",
+        "maven",
+        "gradle",
+        "java",
+        "gradle-version"
+    )
+
+    (plugins) {
+
+        "deblibs" {
+            displayName = "DebLibs"
+            description = "Uploads apps dependencies to github"
+        }
     }
+}
+
+publishing {
 
     publications {
         register("deblibs", MavenPublication::class) {
@@ -63,15 +88,6 @@ publishing {
     }
 }
 
-repositories {
-    jcenter()
-}
-
-pluginBundle {
-    website = "https://github.com/hellofresh/deblibs"
-    vcsUrl = "https://github.com/hellofresh/deblibs"
-    tags = listOf("kotlin", "kotlin-dsl", "versioning")
-}
 dependencies {
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.9")
     implementation("com.github.ben-manes:gradle-versions-plugin:0.20.0")
