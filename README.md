@@ -25,7 +25,7 @@ Usage
 
 ```groovy
 plugins {
-  id "com.hellofresh.deblibs" version "$version"
+  id "com.hellofresh.gradle.deblibs" version "$version"
 }
 ```
 
@@ -40,7 +40,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.hellofresh.deblibs:deblibs:$version"
+    classpath "com.hellofresh.gradle:deblibs:$version"
   }
   
 }
