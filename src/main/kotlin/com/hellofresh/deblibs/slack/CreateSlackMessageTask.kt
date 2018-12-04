@@ -41,7 +41,7 @@ open class CreateSlackMessageTask : BaseDefaultTask() {
     lateinit var projectName: String
 
     init {
-        description = "Create a slack message from the outdated dependencies report"
+        description = "Create a slack message from the outdated dependencies report."
         group = "reporting"
     }
 

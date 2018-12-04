@@ -17,8 +17,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
-    var kotlinVersion: String by extra
-    kotlinVersion = "1.3.10"
     repositories {
         jcenter()
     }
@@ -26,8 +24,9 @@ buildscript {
 
 plugins {
     id("com.gradle.plugin-publish") version "0.10.0"
-    `java-gradle-plugin`
+    kotlin("jvm") version "1.3.10"
     `kotlin-dsl`
+    `java-gradle-plugin`
     `maven-publish`
 }
 
@@ -39,13 +38,13 @@ repositories {
     jcenter()
 }
 
-group = "com.hellofresh.deblibs"
-version = "0.1.0"
+group = "com.hellofresh.gradle"
+version = "1.0.0-SNAPSHOT"
 
 gradlePlugin {
     plugins {
         register("deblibs") {
-            id = "com.hellofresh.deblibs"
+            id = "com.hellofresh.gradle.deblibs"
             implementationClass = "com.hellofresh.deblibs.DebLibsPlugin"
         }
     }
@@ -87,6 +86,27 @@ publishing {
         }
     }
 }
+
+fun setupPublishingEnvironment() {
+
+    val keyProperty = "gradle.publish.key"
+    val secretProperty = "gradle.publish.secret"
+
+    if (System.getProperty(keyProperty) == null || System.getProperty(secretProperty) == null) {
+        logger.info("`$keyProperty` or `$secretProperty` were not set. Attempting to configure from environment variables")
+
+        val key: String? = System.getenv("GRADLE_PUBLISH_KEY")
+        val secret: String? = System.getenv("GRADLE_PUBLISH_SECRET")
+        if (!key.isNullOrBlank() && !secret.isNullOrBlank()) {
+            System.setProperty(keyProperty, key)
+            System.setProperty(secretProperty, secret)
+        } else {
+            logger.warn("key or secret was null")
+        }
+    }
+}
+
+setupPublishingEnvironment()
 
 dependencies {
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.9")

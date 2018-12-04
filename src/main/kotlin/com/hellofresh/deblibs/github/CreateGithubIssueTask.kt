@@ -32,7 +32,7 @@ open class CreateGithubIssueTask : BaseDefaultTask() {
     lateinit var token: String
 
     init {
-        description = "Create Github issue with a report of outdated dependencies"
+        description = "Create Github issue from the outdated dependencies report."
         group = "reporting"
     }
 
