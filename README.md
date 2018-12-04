@@ -23,15 +23,18 @@ Usage
 
 ### `plugins` block:
 
+_`Build script snippet for plugins DSL for Gradle 2.1 and later:`_
+
 ```groovy
 plugins {
   id "com.hellofresh.gradle.deblibs" version "$version"
 }
 ```
 
+_`Build script snippet for use in older Gradle versions or where dynamic configuration is required:`_
 ### `buildscript` block:
 ```groovy
-apply plugin: "com.hellofresh.deblibs"
+apply plugin: "com.hellofresh.gradle.deblibs"
 
 buildscript {
 
@@ -95,7 +98,7 @@ Publish to a local maven repository for testing with: `./gradlew publishToMavenL
 
 Link
 ----
-[Deblibs Gradle Plugin on the Gradle Plugin Registry](https://plugins.gradle.org/plugin/com.hellofresh.deblibs)
+[Deblibs Gradle Plugin on the Gradle Plugin Registry](https://plugins.gradle.org/plugin/com.hellofresh.gradle.deblibs)
 
 License
 -------
@@ -113,3 +116,4 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+	
