@@ -29,10 +29,12 @@ plugins {
     `java-gradle-plugin`
     `maven-publish`
     id("io.gitlab.arturbosch.detekt") version "1.0.0-RC11"
+    id("org.jlleitschuh.gradle.ktlint") version "6.3.1"
 }
 
 apply {
     plugin("kotlin")
+    plugin("org.jlleitschuh.gradle.ktlint")
 }
 
 repositories {

@@ -24,4 +24,5 @@ open class DebLibsExtension(
     var slackToken: String = "",
     var slackChannel: String = "",
     var slackName: String = "",
-    var slackIconUrl: String = "")
+    var slackIconUrl: String = ""
+)
