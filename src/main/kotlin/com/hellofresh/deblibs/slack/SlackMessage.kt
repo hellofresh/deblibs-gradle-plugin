@@ -16,12 +16,13 @@
 
 package com.hellofresh.deblibs.slack
 
+import com.squareup.moshi.Json
 import org.gradle.internal.time.Time
 
 data class SlackMessage(
     val username: String,
     val channel: String,
-    val icon_url: String = DEFAULT_ICON_URL,
+    @Json(name = "icon_url") val iconUrl: String = DEFAULT_ICON_URL,
     val attachments: List<Attachment>
 ) {
     data class Attachment(
@@ -30,7 +31,7 @@ data class SlackMessage(
         val pretext: String,
         val text: String,
         val footer: String,
-        val ts: Long = Time.currentTimeMillis().div(1000)
+        val ts: Long = Time.currentTimeMillis().div(ROUNDING_NUMBER)
     ) {
         enum class Color(val hexColor: String) {
             RED("#c4291c"),
@@ -40,6 +41,8 @@ data class SlackMessage(
     }
 
     companion object {
-        const val DEFAULT_ICON_URL = "https://avatars.slack-edge.com/2018-06-12/380095389394_a485f66ceffe05c1e6d4_192.png"
+        const val DEFAULT_ICON_URL =
+            "https://avatars.slack-edge.com/2018-06-12/380095389394_a485f66ceffe05c1e6d4_192.png"
+        const val ROUNDING_NUMBER = 1000
     }
 }

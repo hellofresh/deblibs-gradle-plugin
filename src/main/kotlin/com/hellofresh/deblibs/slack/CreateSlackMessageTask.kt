@@ -68,15 +68,15 @@ open class CreateSlackMessageTask : BaseDefaultTask() {
             SlackMessage(
                 username = name,
                 channel = channel,
-                icon_url = icon,
+                iconUrl = icon,
                 attachments = attachments)
         ).run()
     }
 
     private fun buildMessageAttachment(dependencySize: Int, outDatedDependencies: String): List<Attachment> {
         val color = when {
-            dependencySize <= 10 -> GREEN
-            dependencySize <= 20 -> YELLOW
+            dependencySize <= GREEN_LIMIT -> GREEN
+            dependencySize <= YELLOW_LIMIT -> YELLOW
             else -> RED
         }
         return listOf(
@@ -88,5 +88,10 @@ open class CreateSlackMessageTask : BaseDefaultTask() {
                 footer = "Total: $dependencySize"
             )
         )
+    }
+
+    companion object {
+        private const val GREEN_LIMIT = 10
+        private const val YELLOW_LIMIT = 20
     }
 }
