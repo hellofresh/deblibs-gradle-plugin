@@ -24,14 +24,17 @@ buildscript {
 
 plugins {
     id("com.gradle.plugin-publish") version "0.10.0"
-    kotlin("jvm") version "1.3.10"
+    kotlin("jvm") version "1.3.11"
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
+    id("io.gitlab.arturbosch.detekt") version "1.0.0-RC11"
+    id("org.jlleitschuh.gradle.ktlint") version "6.3.1"
 }
 
 apply {
     plugin("kotlin")
+    plugin("org.jlleitschuh.gradle.ktlint")
 }
 
 repositories {
@@ -128,4 +131,9 @@ tasks.withType<Test>().configureEach {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+detekt {
+    input = files("src/main/kotlin")
+    filters = ".*/resources/.*,.*/build/.*"
 }
