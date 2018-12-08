@@ -6,6 +6,8 @@ can easily be tracked and manually upgraded.
 
 **Latest version:** [0.1.0](#)
 
+[![Build Status](https://travis-ci.org/hellofresh/deblibs-gradle-plugin.svg?branch=master)](https://travis-ci.org/hellofresh/deblibs-gradle-plugin)
+
 This plugin builds on the [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin).
 
 Screenshots
