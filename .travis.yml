@@ -1,19 +1,15 @@
 language: java
-
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
-    directories:
-    - "$HOME/.gradle/caches/"
-    - "$HOME/.gradle/wrapper/"
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 script:
 - "./gradlew build --no-daemon"
 - if [ -n "$TRAVIS_TAG" ]; then ./gradlew build publishPlugins --no-daemon; fi
-
 env:
   global:
-  # GRADLE_PUBLISH_KEY
-  - secure: secure gradle publish key
-  # GRADLE_PUBLISH_SECRET
-  - secure: secure gradle secrete key
+  - secure: gLHHs3L8cZP5Tmg35Dgrp47IzLlnR/0OyFHptfG73eQQ2fUAVg5wRk1KUqTAnSXpwHFfGZAsW3u4rMAgGa6mCBpEMbnt51jr6kn5Hm/D51GbMg2kqe53azhmEvq5EfGEDDjc2wRVTkNAXMP/C8YBZhs0MF7wCQQtdOP6eFkRwyQyIOs7KxzuWC0Cna1+utAp1qyPGCGX570xinjBLDlcq+JKihQAaPcc2jfk8L/Kvtqb/7Aj5gMHb9rRFnW+kpsqcna15qEfnd35lTEbMH4LO3TiD0mdg4MVqs3TUvcM3KmoMLJUhf1FM06790MPfNuRtcc2WMCImBz9nx+n9Uci3UgPzWYvAY9JNP++BERyPSTLINEnhS4iEpjmj4KDu4cBp188VDqU0Rq0+PCmUUI92ABd32j2u7jDCVjOpHukdRbXUyXe+1lvONSqGuKIqCctdRVRG74/TTq1tKwEBAkiCAFp40Nf8poR6yosDku3pkWY809APf039rHDC0TGbAbq0Ni7IqkuaQFyTWeB3ASSyf9wHoooD31GvJcE2uLlV16A3n1ygPIaGR+iR+Pt+zWgycT7nJfbotsIN+2/WbaitV1ns3kMTkKCJbmuu8/oaX4RIdM0huD7b+gxSUBdHbJl9DRO6nU5Qdz4tb0vKSWzu6V5FIDOtyoOo0Leav0or8s=
+  - secure: GKr1Fd9ytCWhj88kuiApWkis57dijWrwBosg2eKWn+E3d7XgljXr0xefDuTSGcIsn+4JxnJEd05lZmwAoVnDA3mTl6PnWVFfiVXuLzAWAuf7zjzJ3uMDy4R1fMGvZ9fAYNC10xVzGjc0uyZvLN4FcIzDgaU8Sep5ZJTAsl25ww6TbcUEkYbYBfcn0oFzeVUoqK5bo6Hsb5oiQEky3lYcO5DsbnLJ3S7TYa5pJvSnTRfp+jXkb2O66HsGl1gpvSsvFIYpOAwioIbvvTlzgT25qOFmgjP/ghLIutRcHIhM8Xjv4B36WvtpgdJx/l7rBuevA87AOYaN/WO/diifFhOKEdM6zFubg3xPqB/YZlKlrAMz1qCJpLQxCG6218ip0LepLTaduulpkZGOSstFWxTXyJ0tdZESmrEK7EJP2XS9WzRG+JHF0RD4UPhO7P9qcWF6cvg0v/R++wgfPmgxGyqz/LASZ38P/MsytWKw4xbxD8VX7TzteDRMl8JXZpq9Su0KtkXTkVuJVTjCc0CMcJc2yS2uljsBo5iM2qzBxjMvddozvcfWIkkT/BrRXGSpUqBv0IMEw85gcp2U0cJQh4JaXl+iaolhg282vgrKTjMFRPhCuEiVHSU03cOv0fvdwXEJZQFdqlONHD2CXECYQn14CjM/JvLpkiAny1iXCwNTFhg=
