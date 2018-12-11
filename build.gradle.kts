@@ -42,7 +42,7 @@ repositories {
 }
 
 group = "com.hellofresh.gradle"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 
 gradlePlugin {
     plugins {
