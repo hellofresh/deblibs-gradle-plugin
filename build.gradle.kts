@@ -79,17 +79,6 @@ pluginBundle {
     }
 }
 
-publishing {
-
-    publications {
-        register("deblibs", MavenPublication::class) {
-            setGroupId(groupId)
-            artifactId = "deblibs"
-            from(components["java"])
-        }
-    }
-}
-
 fun setupPublishingEnvironment() {
 
     val keyProperty = "gradle.publish.key"
