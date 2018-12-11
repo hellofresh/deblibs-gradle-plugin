@@ -6,7 +6,7 @@ Releasing
  3. Update the `README.md` with the new version.
  6. Update `CHANGELOG.md` entry with changes of the release. 
  4. Run `./gradlew clean build` to make sure project builds successfully.
- 5. `git commit -am "Prepare for release X.Y.Z."` (where X.Y.Z is the new version).
+ 5. `git commit -am "Make release for X.Y.Z."` (where X.Y.Z is the new version).
  6. `git tag -a X.Y.Z -m "Version X.Y.Z"`
  7. `git push && git push --tags`
  8. Update `version` value in `build.gradle.kts` to the next SNAPSHOT version.
