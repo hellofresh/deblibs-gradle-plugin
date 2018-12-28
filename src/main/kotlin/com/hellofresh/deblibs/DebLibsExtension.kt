@@ -18,7 +18,6 @@ package com.hellofresh.deblibs
 
 open class DebLibsExtension(
     var projectName: String = "",
-    var githubOwner: String = "",
     var githubRepo: String = "",
     var githubToken: String = "",
     var slackToken: String = "",

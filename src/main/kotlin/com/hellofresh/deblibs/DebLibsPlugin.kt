@@ -67,7 +67,6 @@ open class DebLibsPlugin : Plugin<Project> {
             afterEvaluate {
                 val createGithubIssue =
                     tasks.getByName(GITHUB_TASK_NAME) as CreateGithubIssueTask
-                createGithubIssue.owner = ext.githubOwner
                 createGithubIssue.repo = ext.githubRepo
                 createGithubIssue.token = ext.githubToken
 

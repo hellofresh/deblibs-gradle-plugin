@@ -29,7 +29,6 @@ import okhttp3.Response
 import java.net.HttpURLConnection
 
 class GithubClient(
-    private val owner: String,
     private val repo: String,
     private val token: String,
     private val githubIssue: GithubIssue
@@ -45,7 +44,7 @@ class GithubClient(
         val json = moshiAdapter.toJson(githubIssue)
         val requestBody = RequestBody.create(JSON, json)
         val request = createRequestHeaders(token)
-            .url("https://api.github.com/repos/$owner/$repo/issues")
+            .url("https://api.github.com/repos/$repo/issues")
             .post(requestBody)
             .build()
         var response: Response? = null
@@ -59,7 +58,7 @@ class GithubClient(
 
         if (status != HttpURLConnection.HTTP_CREATED) {
             if (status == HttpURLConnection.HTTP_NOT_FOUND) {
-                error("404 Repository with Owner: '$owner' and Name: '$repo' was not found")
+                error("404 Repository with Repo: '$repo' was not found")
             }
             error("Could not create github issue: $status ${response?.message()}\n$githubIssue")
         }
