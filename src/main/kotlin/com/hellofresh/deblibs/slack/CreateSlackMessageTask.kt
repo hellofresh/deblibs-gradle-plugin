@@ -24,7 +24,6 @@ import com.hellofresh.deblibs.slack.SlackMessage.Attachment
 import com.hellofresh.deblibs.slack.SlackMessage.Attachment.Color.GREEN
 import com.hellofresh.deblibs.slack.SlackMessage.Attachment.Color.RED
 import com.hellofresh.deblibs.slack.SlackMessage.Attachment.Color.YELLOW
-import com.hellofresh.deblibs.slack.SlackMessage.Companion.DEFAULT_ICON_URL
 import org.gradle.api.tasks.Input
 
 open class CreateSlackMessageTask : BaseDefaultTask() {
@@ -62,7 +61,7 @@ open class CreateSlackMessageTask : BaseDefaultTask() {
         val attachments =
             buildMessageAttachment(dependencies.size, outDatedDependencies)
         val name = if (username.isBlank()) "DebLibs" else username
-        val icon = if (iconUrl.isBlank()) DEFAULT_ICON_URL else iconUrl
+        val icon = iconUrl
         SlackClient(
             token,
             SlackMessage(

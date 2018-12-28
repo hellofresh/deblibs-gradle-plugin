@@ -22,7 +22,7 @@ import org.gradle.internal.time.Time
 data class SlackMessage(
     val username: String,
     val channel: String,
-    @Json(name = "icon_url") val iconUrl: String = DEFAULT_ICON_URL,
+    @Json(name = "icon_url") val iconUrl: String = "",
     val attachments: List<Attachment>
 ) {
     data class Attachment(
@@ -41,8 +41,6 @@ data class SlackMessage(
     }
 
     companion object {
-        const val DEFAULT_ICON_URL =
-            "https://avatars.slack-edge.com/2018-06-12/380095389394_a485f66ceffe05c1e6d4_192.png"
         const val ROUNDING_NUMBER = 1000
     }
 }
