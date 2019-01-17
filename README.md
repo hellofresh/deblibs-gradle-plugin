@@ -66,7 +66,8 @@ deblibs {
    githubRepo = "project-github-repo"
    githubToken = "github-token"
    slackToken = "slack-token"
-   slackChannel = "#slack-channel"    
+   slackChannel = "#slack-channel"
+   slackIconUrl = "url-to-an-icon-to-be-used-by-the-slack-bot"    
 }
 
 ```
