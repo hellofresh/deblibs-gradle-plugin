@@ -58,7 +58,7 @@ class GithubClient(
 
         if (status != HttpURLConnection.HTTP_CREATED) {
             if (status == HttpURLConnection.HTTP_NOT_FOUND) {
-                error("404 Repository with Repo: '$repo' was not found")
+                error("404 Repository at '$repo' was not found")
             }
             error("Could not create github issue: $status ${response?.message()}\n$githubIssue")
         }
