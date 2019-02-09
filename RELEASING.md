@@ -3,8 +3,7 @@ Releasing
 
  1. Create a branch from `master` in the format `release/<version_to_be_released>` Eg. `release/1.0.0`
  2. Change the `version` value in `build.gradle.kts` to the version number to be released.
- 3. Update the `README.md` with the new version.
- 6. Update `CHANGELOG.md` entry with changes of the release. 
+ 3. Update `CHANGELOG.md` entry with changes of the release. 
  4. Run `./gradlew clean build` to make sure project builds successfully.
  5. `git commit -am "Make release for X.Y.Z."` (where X.Y.Z is the new version).
  6. `git tag -a X.Y.Z -m "Version X.Y.Z"`

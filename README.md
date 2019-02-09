@@ -1,12 +1,10 @@
+[![Build Status](https://travis-ci.org/hellofresh/deblibs-gradle-plugin.svg?branch=master)](https://travis-ci.org/hellofresh/deblibs-gradle-plugin) [![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/hellofresh/gradle/deblibs/com.hellofresh.gradle.deblibs.gradle.plugin/maven-metadata.xml.svg?label=Download)](https://plugins.gradle.org/plugin/com.hellofresh.gradle.deblibs)
+
 DebLibs
 -------
 
 A Gradle plugin that creates Github issue and Slack message for outdated project dependencies so they 
 can easily be tracked and manually upgraded.
-
-**Latest version:** [1.0.0](https://github.com/hellofresh/deblibs-gradle-plugin/blob/master/CHANGELOG.md#1.0.0)
-
-[![Build Status](https://travis-ci.org/hellofresh/deblibs-gradle-plugin.svg?branch=master)](https://travis-ci.org/hellofresh/deblibs-gradle-plugin)
 
 This plugin builds on the [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin).
 
