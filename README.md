@@ -60,7 +60,6 @@ If you don't configure the default will be used which are blank values. This wil
 ```groovy
 deblibs {
    projectName ="Project name"
-   githubOwner = "project-github-owner"
    githubRepo = "project-github-repo"
    githubToken = "github-token"
    slackToken = "slack-token"

@@ -25,8 +25,6 @@ import org.gradle.api.tasks.Input
 open class CreateGithubIssueTask : BaseDefaultTask() {
 
     @Input
-    lateinit var owner: String
-    @Input
     lateinit var repo: String
     @Input
     lateinit var token: String
@@ -49,7 +47,6 @@ open class CreateGithubIssueTask : BaseDefaultTask() {
         }
         if (outDatedDependencies.isNotBlank()) {
             GithubClient(
-                owner,
                 repo,
                 token,
                 GithubIssue("Outdated Dependencies(${dependencies.size})", outDatedDependencies)

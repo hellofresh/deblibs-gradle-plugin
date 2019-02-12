@@ -3,6 +3,11 @@
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Removed
+-  Removed `githubOwner` property and replaced it with just `githubRepo` which means you have to add
+the owner as well. So now `githubRepo` value would be `hellofresh/deblibs-gradle-plugin`
+
 ### Added
 - Unit tests
 
