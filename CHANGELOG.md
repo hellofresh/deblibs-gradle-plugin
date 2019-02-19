@@ -4,16 +4,19 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## Changed
+- Fixed wrong Gradle plugin website URL.
+
 ### Removed
 -  Removed `githubOwner` property and replaced it with just `githubRepo` which means you have to add
 the owner as well. So now `githubRepo` value would be `hellofresh/deblibs-gradle-plugin`
 
-### Added
-- Unit tests
-
-### Removed
 -  Removed Slack's default icon and replaced it with nothing. This means if you want an icon with the 
-bot you've to provide a URL for the icon. 
+bot you've to provide a URL for the icon.
+
+### Added
+- Unit tests.
+
 
 ## [1.0.0] - 2018-12-11
 ### Added
