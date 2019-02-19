@@ -54,7 +54,7 @@ gradlePlugin {
 }
 
 pluginBundle {
-    website = "https://plugins.gradle.org/plugin/com.hellofresh.gradle.deblibs"
+    website = "https://github.com/hellofresh/deblibs-gradle-plugin"
     vcsUrl = "https://github.com/hellofresh/deblibs-gradle-plugin"
     tags = listOf(
         "kotlin",
