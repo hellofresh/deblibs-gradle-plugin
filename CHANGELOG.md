@@ -22,7 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 the owner as well. So now `githubRepo` value would be `hellofresh/deblibs-gradle-plugin`.
 
 -  Removed Slack's default icon and replaced it with nothing. This means if you want an icon with the 
-bot you've to provide a URL for the icon. 
+bot you have to provide a URL for the icon. 
 
 ## [1.0.0] - 2018-12-11
 ### Added
