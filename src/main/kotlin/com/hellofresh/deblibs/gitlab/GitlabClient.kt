@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs.github
+package com.hellofresh.deblibs.gitlab
 
 import com.hellofresh.deblibs.Adapters
 import com.hellofresh.deblibs.BaseClient
-import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
 import com.squareup.moshi.JsonAdapter
 import okhttp3.Response
 import java.net.HttpURLConnection
 
-class GithubClient(
-    private val repo: String,
+class GitlabClient(
+    private val id: String,
     private val token: String,
-    private val githubIssue: GithubIssue
+    private val gitlabIssue: GitlabIssue
 ) : BaseClient {
 
-    private val moshiAdapter: JsonAdapter<GithubIssue> = Adapters.adapter()
+    private val moshiAdapter: JsonAdapter<GitlabIssue> = Adapters.adapter()
 
     override fun run() {
         createIssue()
@@ -39,19 +38,19 @@ class GithubClient(
         val (response, status) = makePostRequest()
         if (status != HttpURLConnection.HTTP_CREATED) {
             if (status == HttpURLConnection.HTTP_NOT_FOUND) {
-                error("404 Repository at '$repo' was not found")
+                error("404 Repository at '$id' was not found")
             }
-            error("Could not create github issue: $status ${response?.message()}\n$githubIssue")
+            error("Could not create github issue: $status ${response?.message()}\n$gitlabIssue")
         }
     }
 
     private fun makePostRequest(): Pair<Response?, Int> {
-        val json = moshiAdapter.toJson(githubIssue)
+        val json = moshiAdapter.toJson(gitlabIssue)
         return postRequest(
             json,
-            "https://api.github.com/repos/$repo/issues",
-            AUTHORIZATION,
-            "token $token"
+            "https://gitlab.com/api/v4/projects/$id/issues",
+            "Private-Token",
+            token
         )
     }
 }

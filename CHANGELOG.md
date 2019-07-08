@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ### Added
-- Unit tests
+- Added support for posting report to Gitlab as an issue.
 
 ## [2.0.0] - 2019-02-19
 

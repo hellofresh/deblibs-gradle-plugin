@@ -64,7 +64,9 @@ deblibs {
    githubToken = "github-token"
    slackToken = "slack-token"
    slackChannel = "#slack-channel"
-   slackIconUrl = "url-to-an-icon-to-be-used-by-the-slack-bot"    
+   slackIconUrl = "url-to-an-icon-to-be-used-by-the-slack-bot"
+   gitlabToken = "gitlab-personal-access-token"
+   gitlabProjectId = "gitlab-project-id"    
 }
 
 ```
@@ -83,6 +85,10 @@ To create a Github issue, issue the command:
 To post to Slack, issue the command:
 
 `./gradlew createSlackMessage`
+
+To create a Gitlab issue, issue the command:
+
+`./gradlew createGitlabIssue`
 
 Development
 -----------

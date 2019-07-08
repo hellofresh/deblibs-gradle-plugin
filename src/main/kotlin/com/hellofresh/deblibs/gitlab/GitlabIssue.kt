@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs
+package com.hellofresh.deblibs.gitlab
 
-open class DebLibsExtension(
-    var projectName: String = "",
-    var githubRepo: String = "",
-    var githubToken: String = "",
-    var slackToken: String = "",
-    var slackChannel: String = "",
-    var slackName: String = "",
-    var slackIconUrl: String = "",
-    var gitlabProjectId: String = "",
-    var gitlabToken: String = ""
-)
+data class GitlabIssue(val title: String, val description: String)

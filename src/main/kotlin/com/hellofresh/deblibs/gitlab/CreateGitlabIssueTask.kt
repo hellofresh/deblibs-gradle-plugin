@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hellofresh.deblibs.github
+package com.hellofresh.deblibs.gitlab
 
 import com.hellofresh.deblibs.BaseDefaultTask
 import com.hellofresh.deblibs.Dependency
@@ -22,15 +22,15 @@ import com.hellofresh.deblibs.DependencyGraph
 import com.hellofresh.deblibs.gradleNotation
 import org.gradle.api.tasks.Input
 
-open class CreateGithubIssueTask : BaseDefaultTask() {
+open class CreateGitlabIssueTask : BaseDefaultTask() {
 
     @Input
-    lateinit var repo: String
+    lateinit var projectId: String
     @Input
     lateinit var token: String
 
     init {
-        description = "Create Github issue from the outdated dependencies report."
+        description = "Create Gitlab issue from the outdated dependencies report."
         group = "reporting"
     }
 
@@ -46,10 +46,10 @@ open class CreateGithubIssueTask : BaseDefaultTask() {
             outDatedDependencies += "\nGradle updates:\n* [ ] `Gradle: $gradleVersion`\n"
         }
         if (outDatedDependencies.isNotBlank()) {
-            GithubClient(
-                repo,
+            GitlabClient(
+                projectId,
                 token,
-                GithubIssue("Outdated Dependencies(${dependencies.size})", outDatedDependencies)
+                GitlabIssue("Outdated Dependencies(${dependencies.size})", outDatedDependencies)
             ).run()
         }
     }
