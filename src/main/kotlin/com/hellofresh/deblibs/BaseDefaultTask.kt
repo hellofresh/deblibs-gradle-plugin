@@ -62,8 +62,4 @@ abstract class BaseDefaultTask : DefaultTask() {
     private fun List<Dependency>.sortedDependencies(): List<Dependency> {
         return this.sortedBy { it.gradleNotation() }
     }
-
-    private fun escapeName(name: String): String {
-        return name.replace("[-.:]".toRegex(), "_").toLowerCase()
-    }
 }

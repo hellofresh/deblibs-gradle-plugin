@@ -23,13 +23,13 @@ buildscript {
 }
 
 plugins {
-    id("com.gradle.plugin-publish") version "0.10.0"
-    kotlin("jvm") version "1.3.11"
+    id("com.gradle.plugin-publish") version "0.10.1"
+    kotlin("jvm") version "1.3.41"
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
-    id("io.gitlab.arturbosch.detekt") version "1.0.0-RC11"
-    id("org.jlleitschuh.gradle.ktlint") version "6.3.1"
+    id("io.gitlab.arturbosch.detekt") version "1.0.0-RC16"
+    id("org.jlleitschuh.gradle.ktlint") version "8.1.0"
 }
 
 apply {
@@ -106,8 +106,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:3.8.1")
     implementation("com.squareup.moshi:moshi:1.7.0")
     implementation("com.squareup.okio:okio:2.1.0")
+    implementation(kotlin("stdlib"))
 }
-
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = "1.8"

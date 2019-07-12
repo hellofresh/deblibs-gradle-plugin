@@ -18,6 +18,7 @@ package com.hellofresh.deblibs
 
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import com.hellofresh.deblibs.github.CreateGithubIssueTask
+import com.hellofresh.deblibs.gitlab.CreateGitlabIssueTask
 import com.hellofresh.deblibs.slack.CreateSlackMessageTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -56,12 +57,14 @@ open class DebLibsPlugin : Plugin<Project> {
                 dependsOn(GRADLE_PLUGIN_VERSION_TASK_NAME)
                 jsonInputPath = jsonFile
             }
-
             tasks.register(SLACK_TASK_NAME, CreateSlackMessageTask::class) {
                 dependsOn(GRADLE_PLUGIN_VERSION_TASK_NAME)
                 jsonInputPath = jsonFile
             }
-
+            tasks.register(GITLAB_TASK_NAME, CreateGitlabIssueTask::class) {
+                dependsOn(GRADLE_PLUGIN_VERSION_TASK_NAME)
+                jsonInputPath = jsonFile
+            }
             logger.info("Finished creating $EXTENSION_NAME tasks")
 
             afterEvaluate {
@@ -69,7 +72,6 @@ open class DebLibsPlugin : Plugin<Project> {
                     tasks.getByName(GITHUB_TASK_NAME) as CreateGithubIssueTask
                 createGithubIssue.repo = ext.githubRepo
                 createGithubIssue.token = ext.githubToken
-
                 val slackMessage =
                     tasks.getByName(SLACK_TASK_NAME) as CreateSlackMessageTask
                 slackMessage.token = ext.slackToken
@@ -77,6 +79,10 @@ open class DebLibsPlugin : Plugin<Project> {
                 slackMessage.projectName = ext.projectName
                 slackMessage.username = ext.slackName
                 slackMessage.iconUrl = ext.slackIconUrl
+                val createGitlabIssue =
+                    tasks.getByName(GITLAB_TASK_NAME) as CreateGitlabIssueTask
+                createGitlabIssue.projectId = ext.gitlabProjectId
+                createGitlabIssue.token = ext.gitlabToken
             }
         }
     }
@@ -85,6 +91,7 @@ open class DebLibsPlugin : Plugin<Project> {
 
         private const val SLACK_TASK_NAME = "createSlackMessage"
         private const val GITHUB_TASK_NAME = "createGithubIssue"
+        private const val GITLAB_TASK_NAME = "createGitlabIssue"
         private const val GRADLE_PLUGIN_VERSION_TASK_NAME = ":dependencyUpdates"
         private const val EXTENSION_NAME = "deblibs"
     }
