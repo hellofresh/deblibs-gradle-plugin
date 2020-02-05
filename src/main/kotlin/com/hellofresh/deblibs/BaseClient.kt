@@ -16,7 +16,7 @@
 
 package com.hellofresh.deblibs
 
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -27,7 +27,7 @@ interface BaseClient : Runnable {
     companion object {
 
         val client = OkHttpClient()
-        val JSON = MediaType.parse("application/json; charset=utf-8")
+        val JSON = "application/json; charset=utf-8".toMediaTypeOrNull()
         const val AUTHORIZATION = "Authorization"
         val requestBuilder: Request.Builder
             get() {

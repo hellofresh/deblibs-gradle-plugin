@@ -20,6 +20,8 @@ import com.hellofresh.deblibs.Adapters.adapter
 import com.hellofresh.deblibs.BaseClient
 import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
 import com.squareup.moshi.JsonAdapter
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 
 class SlackClient(

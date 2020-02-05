@@ -36,7 +36,7 @@ data class SlackMessage(
         enum class Color(val hexColor: String) {
             RED("#c4291c"),
             GREEN("#36a64f"),
-            YELLOW("#d6a048")
+            YELLOW("#d6a048"),
         }
     }
 
