@@ -19,12 +19,7 @@ package com.hellofresh.deblibs.github
 import com.hellofresh.deblibs.Adapters
 import com.hellofresh.deblibs.BaseClient
 import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
-import com.hellofresh.deblibs.BaseClient.Companion.JSON
-import com.hellofresh.deblibs.BaseClient.Companion.client
-import com.hellofresh.deblibs.BaseClient.Companion.requestBuilder
 import com.squareup.moshi.JsonAdapter
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.net.HttpURLConnection
 

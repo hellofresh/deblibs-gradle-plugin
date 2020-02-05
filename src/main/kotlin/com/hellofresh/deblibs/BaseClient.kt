@@ -19,7 +19,7 @@ package com.hellofresh.deblibs
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 
 interface BaseClient : Runnable {
@@ -43,7 +43,7 @@ interface BaseClient : Runnable {
         headerName: String,
         headerValue: String
     ): Pair<Response?, Int> {
-        val requestBody = RequestBody.create(JSON, json)
+        val requestBody = json.toRequestBody(JSON)
         val request = requestBuilder.addHeader(headerName, headerValue)
             .url(url)
             .post(requestBody)
@@ -53,7 +53,7 @@ interface BaseClient : Runnable {
 
         try {
             response = client.newCall(request).execute()
-            status = response.code()
+            status = response.code
         } finally {
             response?.close()
         }
