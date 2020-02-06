@@ -2,7 +2,11 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.1.0] - 2020-02-06
+
+### Updated
+- Updated README.md specifying the minimum required Gradle version.
+- Updated all the dependencies to their latest version.
 
 ### Added
 - Added support for posting report to Gitlab as an issue.
@@ -21,8 +25,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -  Removed `githubOwner` property and replaced it with just `githubRepo` which means you have to add
 the owner as well. So now `githubRepo` value would be `hellofresh/deblibs-gradle-plugin`.
 
--  Removed Slack's default icon and replaced it with nothing. This means if you want an icon with the 
-bot you have to provide a URL for the icon. 
+-  Removed Slack's default icon and replaced it with nothing. This means if you want an icon with the
+bot you have to provide a URL for the icon.
 
 ## [1.0.0] - 2018-12-11
 ### Added
