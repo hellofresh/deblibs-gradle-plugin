@@ -9,8 +9,9 @@ Releasing
  6. `git tag -a X.Y.Z -m "Version X.Y.Z"`
  7. `git push && git push --tags`
  8. Update `version` value in `build.gradle.kts` to the next SNAPSHOT version.
- 9. `git commit -am "Prepare next development version."`
- 10. `git push`
+ 9. Update version links at the bottom of the `CHANGELOG.md` file.
+ 10. `git commit -am "Prepare next development version."`
+ 11. `git push`
 
  *Note:* To get the changelog messages from the commit history, issue.
 

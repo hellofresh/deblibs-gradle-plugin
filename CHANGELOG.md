@@ -2,6 +2,11 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[Unreleased]:
+
+## Updated
+- Updated CHANGELOG.md footer links with unreleased info
+
 ## [2.1.0] - 2020-02-06
 
 ### Updated
@@ -33,6 +38,7 @@ bot you have to provide a URL for the icon.
 - Added support for posting report to Github as an issue.
 - Added support for posting report to Slack as a message.
 
-[Unreleased]: https://github.com/hellofresh/deblibs-gradle-plugin/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/hellofresh/deblibs-gradle-plugin/compare/2.1.0...HEAD
+[2.1.0]: https://github.com/hellofresh/deblibs-gradle-plugin/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/hellofresh/deblibs-gradle-plugin/compare/1.0.0...2.0.0
 [1.0.0]: https://github.com/hellofresh/deblibs-gradle-plugin/compare/04fd121...1.0.0
