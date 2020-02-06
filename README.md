@@ -3,7 +3,7 @@
 DebLibs
 -------
 
-A Gradle plugin that creates Github issue and Slack message for outdated project dependencies so they 
+A Gradle plugin that creates Github issue and Slack message for outdated project dependencies so they
 can easily be tracked and manually upgraded.
 
 This plugin builds on the [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin).
@@ -45,11 +45,11 @@ buildscript {
   dependencies {
     classpath "com.hellofresh.gradle:deblibs:$version"
   }
-  
+
 }
 ```
 
-The plugin show work with Gradle version 4.3 and above.
+The plugin show work with Gradle version 4.9 and above.
 
 Configuration
 -------------
@@ -80,7 +80,7 @@ The second task is for publishing info about outdated dependencies to a Slack ch
 
 To create a Github issue, issue the command:
 
-`./gradlew createGithubIssue` 
+`./gradlew createGithubIssue`
 
 To post to Slack, issue the command:
 

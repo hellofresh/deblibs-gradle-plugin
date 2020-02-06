@@ -37,7 +37,7 @@ class SlackClient(
         val (response, status) = makePostRequest()
         val isSuccessful = response?.isSuccessful ?: return
         if (!isSuccessful) {
-            error("Could not create slack message: $status ${response.message()}\n")
+            error("Could not create slack message: $status ${response.message}\n")
         }
     }
 

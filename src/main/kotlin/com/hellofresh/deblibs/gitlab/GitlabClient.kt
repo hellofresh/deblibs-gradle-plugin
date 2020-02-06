@@ -40,7 +40,7 @@ class GitlabClient(
             if (status == HttpURLConnection.HTTP_NOT_FOUND) {
                 error("404 Repository at '$id' was not found")
             }
-            error("Could not create github issue: $status ${response?.message()}\n$gitlabIssue")
+            error("Could not create github issue: $status ${response?.message}\n$gitlabIssue")
         }
     }
 
