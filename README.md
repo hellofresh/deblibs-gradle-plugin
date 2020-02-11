@@ -93,7 +93,7 @@ To create a Gitlab issue, issue the command:
 Development
 -----------
 ### Import
-Import the [settings.gradle.kts](https://github.com/hellofresh/deblibs-gradle-plugin/blob/master/settings.gradle.kts) file into your IDE for development.
+Import the [settings.gradle.kts](https://github.com/hellofresh/deblibs-gradle-plugin/blob/master/settings.gradle.kts) file into your IDE for development. Works well with [IntelliJ Community](https://www.jetbrains.com/de-de/idea/download) edition or IntelliJ Ultimate compared to say Android studio.
 
 ### Build
 
@@ -101,6 +101,8 @@ Build the plugin with: `./gradlew build`
 
 Publish to a local maven repository for testing with: `./gradlew publishToMavenLocal`
 
+####  Test
+Change into the `sample-deblibs` project and issue any of the plugin [tasks](#Tasks) that you want to test.
 
 Link
 ----
