@@ -4,8 +4,19 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 [Unreleased]:
 
+## Added
+-
+
+## [2.2.0] - 2020-02-13
+
+## Changed
+- Fixed a bug with Moshi not able to de/serialize JSON strings.
+
+## Added
+- Added a sample project to help with manual testing of changes to the project.
+
 ## Updated
-- Updated CHANGELOG.md footer links with unreleased info
+- Updated CHANGELOG.md footer links with unreleased info.
 
 ## [2.1.0] - 2020-02-06
 
