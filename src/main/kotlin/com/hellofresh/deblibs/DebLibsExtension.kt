@@ -16,6 +16,7 @@
 
 package com.hellofresh.deblibs
 
+@Suppress("LongParameterList")
 open class DebLibsExtension(
     var projectName: String = "",
     var githubRepo: String = "",

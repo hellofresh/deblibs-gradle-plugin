@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 
 plugins {
-    id("com.gradle.plugin-publish") version "0.10.1"
-    kotlin("jvm") version "1.3.41"
+    id("com.gradle.plugin-publish") version "0.19.0"
+    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
-    id("io.gitlab.arturbosch.detekt") version "1.0.0-RC16"
+    id("io.gitlab.arturbosch.detekt") version "1.19.0"
     id("org.jlleitschuh.gradle.ktlint") version "8.1.0"
 }
 
@@ -38,7 +36,8 @@ apply {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
+    gradlePluginPortal()
 }
 
 group = "com.hellofresh.gradle"
@@ -102,16 +101,12 @@ setupPublishingEnvironment()
 
 dependencies {
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.9")
-    implementation("com.github.ben-manes:gradle-versions-plugin:0.27.0")
+    implementation("com.github.ben-manes:gradle-versions-plugin:0.41.0")
     implementation("com.squareup.okhttp3:okhttp:4.3.1")
     implementation("com.squareup.moshi:moshi:1.9.2")
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
     implementation("com.squareup.okio:okio:2.4.3")
     implementation(kotlin("stdlib"))
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "1.8"
 }
 
 tasks.withType<Test>().configureEach {
@@ -124,6 +119,5 @@ java {
 }
 
 detekt {
-    input = files("src/main/kotlin")
-    filters = ".*/resources/.*,.*/build/.*"
+    source = files("src/main/kotlin")
 }
