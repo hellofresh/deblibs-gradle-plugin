@@ -22,8 +22,8 @@ buildscript {
 
 plugins {
     id("com.gradle.plugin-publish") version "0.19.0"
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.serialization") version "1.6.10"
+    kotlin("jvm") version "1.5.31"
+    kotlin("plugin.serialization") version "1.5.31"
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
