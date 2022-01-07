@@ -16,4 +16,7 @@
 
 package com.hellofresh.deblibs.gitlab
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GitlabIssue(val title: String, val description: String)

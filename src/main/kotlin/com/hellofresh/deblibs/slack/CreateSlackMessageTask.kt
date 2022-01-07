@@ -30,12 +30,16 @@ open class CreateSlackMessageTask : BaseDefaultTask() {
 
     @Input
     lateinit var channel: String
+
     @Input
     lateinit var token: String
+
     @Input
     lateinit var username: String
+
     @Input
     lateinit var iconUrl: String
+
     @Input
     lateinit var projectName: String
 
@@ -68,11 +72,15 @@ open class CreateSlackMessageTask : BaseDefaultTask() {
                 username = name,
                 channel = channel,
                 iconUrl = icon,
-                attachments = attachments)
+                attachments = attachments
+            )
         ).run()
     }
 
-    private fun buildMessageAttachment(dependencySize: Int, outDatedDependencies: String): List<Attachment> {
+    private fun buildMessageAttachment(
+        dependencySize: Int,
+        outDatedDependencies: String
+    ): List<Attachment> {
         val color = when {
             dependencySize <= GREEN_LIMIT -> GREEN
             dependencySize <= YELLOW_LIMIT -> YELLOW

@@ -16,15 +16,18 @@
 
 package com.hellofresh.deblibs.slack
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.gradle.internal.time.Time
 
+@Serializable
 data class SlackMessage(
     val username: String,
     val channel: String,
-    @Json(name = "icon_url") val iconUrl: String = "",
+    @SerialName("icon_url") val iconUrl: String = "",
     val attachments: List<Attachment>
 ) {
+    @Serializable
     data class Attachment(
         val color: String = Color.YELLOW.hexColor,
         val title: String,

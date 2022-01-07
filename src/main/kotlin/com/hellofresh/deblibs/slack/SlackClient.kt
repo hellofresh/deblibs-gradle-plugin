@@ -16,18 +16,16 @@
 
 package com.hellofresh.deblibs.slack
 
-import com.hellofresh.deblibs.Adapters.adapter
 import com.hellofresh.deblibs.BaseClient
 import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
-import com.squareup.moshi.JsonAdapter
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.Response
 
 class SlackClient(
     private val token: String,
     private val slackMessage: SlackMessage
 ) : BaseClient {
-
-    private val moshiAdapter: JsonAdapter<SlackMessage> = adapter()
 
     override fun run() {
         postMessage()
@@ -42,7 +40,7 @@ class SlackClient(
     }
 
     private fun makePostRequest(): Pair<Response?, Int> {
-        val json = moshiAdapter.toJson(slackMessage)
+        val json = Json.encodeToString(slackMessage)
         return postRequest(
             json,
             "https://slack.com/api/chat.postMessage",

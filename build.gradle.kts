@@ -22,12 +22,13 @@ buildscript {
 
 plugins {
     id("com.gradle.plugin-publish") version "0.19.0"
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    kotlin("jvm") version "1.6.10"
+    kotlin("plugin.serialization") version "1.6.10"
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
     id("io.gitlab.arturbosch.detekt") version "1.19.0"
-    id("org.jlleitschuh.gradle.ktlint") version "8.1.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 }
 
 apply {
@@ -100,13 +101,10 @@ fun setupPublishingEnvironment() {
 setupPublishingEnvironment()
 
 dependencies {
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.9")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.1")
     implementation("com.github.ben-manes:gradle-versions-plugin:0.41.0")
-    implementation("com.squareup.okhttp3:okhttp:4.3.1")
-    implementation("com.squareup.moshi:moshi:1.9.2")
-    implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
-    implementation("com.squareup.okio:okio:2.4.3")
-    implementation(kotlin("stdlib"))
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 }
 
 tasks.withType<Test>().configureEach {

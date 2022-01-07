@@ -16,4 +16,7 @@
 
 package com.hellofresh.deblibs.github
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GithubIssue(val title: String, val body: String)

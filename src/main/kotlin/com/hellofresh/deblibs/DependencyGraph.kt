@@ -16,6 +16,9 @@
 
 package com.hellofresh.deblibs
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class DependencyGraph(
     val gradle: GradleConfig,
     val current: Dependencies,
@@ -30,11 +33,13 @@ fun Dependency.gradleNotation(): String {
     return "$group:$name:[$version -> $milestone]"
 }
 
+@Serializable
 data class Dependencies(
     val dependencies: List<Dependency> = emptyList(),
     val count: Int = 0
 ) : List<Dependency> by dependencies
 
+@Serializable
 data class Dependency(
     val group: String = "",
     val version: String = "",
@@ -45,6 +50,7 @@ data class Dependency(
     val available: AvailableDependency? = null
 )
 
+@Serializable
 data class GradleConfig(
     val current: GradleVersion,
     val nightly: GradleVersion,
@@ -53,6 +59,7 @@ data class GradleConfig(
     val running: GradleVersion
 )
 
+@Serializable
 data class GradleVersion(
     val version: String = "",
     val reason: String = "",
@@ -60,6 +67,7 @@ data class GradleVersion(
     val isFailure: Boolean = false
 )
 
+@Serializable
 data class AvailableDependency(
     val release: String? = "",
     val milestone: String? = "",

@@ -16,10 +16,10 @@
 
 package com.hellofresh.deblibs.github
 
-import com.hellofresh.deblibs.Adapters
 import com.hellofresh.deblibs.BaseClient
 import com.hellofresh.deblibs.BaseClient.Companion.AUTHORIZATION
-import com.squareup.moshi.JsonAdapter
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.Response
 import java.net.HttpURLConnection
 
@@ -28,8 +28,6 @@ class GithubClient(
     private val token: String,
     private val githubIssue: GithubIssue
 ) : BaseClient {
-
-    private val moshiAdapter: JsonAdapter<GithubIssue> = Adapters.adapter()
 
     override fun run() {
         createIssue()
@@ -46,7 +44,7 @@ class GithubClient(
     }
 
     private fun makePostRequest(): Pair<Response?, Int> {
-        val json = moshiAdapter.toJson(githubIssue)
+        val json = Json.encodeToString(githubIssue)
         return postRequest(
             json,
             "https://api.github.com/repos/$repo/issues",

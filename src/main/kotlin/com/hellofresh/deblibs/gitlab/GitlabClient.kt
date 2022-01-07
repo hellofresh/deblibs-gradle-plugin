@@ -16,9 +16,9 @@
 
 package com.hellofresh.deblibs.gitlab
 
-import com.hellofresh.deblibs.Adapters
 import com.hellofresh.deblibs.BaseClient
-import com.squareup.moshi.JsonAdapter
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.Response
 import java.net.HttpURLConnection
 
@@ -27,8 +27,6 @@ class GitlabClient(
     private val token: String,
     private val gitlabIssue: GitlabIssue
 ) : BaseClient {
-
-    private val moshiAdapter: JsonAdapter<GitlabIssue> = Adapters.adapter()
 
     override fun run() {
         createIssue()
@@ -45,7 +43,8 @@ class GitlabClient(
     }
 
     private fun makePostRequest(): Pair<Response?, Int> {
-        val json = moshiAdapter.toJson(gitlabIssue)
+
+        val json = Json.encodeToString(gitlabIssue)
         return postRequest(
             json,
             "https://gitlab.com/api/v4/projects/$id/issues",

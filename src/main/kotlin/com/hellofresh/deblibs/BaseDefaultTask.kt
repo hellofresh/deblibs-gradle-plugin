@@ -16,8 +16,8 @@
 
 package com.hellofresh.deblibs
 
-import okio.buffer
-import okio.source
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
@@ -56,7 +56,7 @@ abstract class BaseDefaultTask : DefaultTask() {
     }
 
     private fun readGraphFromJsonFile(jsonInput: File): DependencyGraph {
-        return Adapters.DependencyGraph.fromJson(jsonInput.source().buffer())!!
+        return Json.decodeFromStream(jsonInput.inputStream())
     }
 
     private fun List<Dependency>.sortedDependencies(): List<Dependency> {
