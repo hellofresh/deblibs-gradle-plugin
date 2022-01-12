@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/hellofresh/deblibs-gradle-plugin.svg?branch=master)](https://travis-ci.org/hellofresh/deblibs-gradle-plugin) [![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/hellofresh/gradle/deblibs/com.hellofresh.gradle.deblibs.gradle.plugin/maven-metadata.xml.svg?label=Download)](https://plugins.gradle.org/plugin/com.hellofresh.gradle.deblibs)
 
+
+# Deprecated
+
+The plugin support has stopped. There will be no new updates, but latest published version will be available as a dependency. Please consider migrating to https://github.com/ben-manes/gradle-versions-plugin
+
 DebLibs
 -------
 
